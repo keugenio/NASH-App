@@ -3,7 +3,8 @@ import {ScrollView, View, Text, Image, Linking, Modal, TouchableHighlight, Alert
 import { Card } from 'react-native-elements';
 import {Button} from './common';
 
-const treatment = () => {
+class Treatment extends React.Component {
+  render(){  
     const {textStyle, quoteStyle, link, bgSoftBlue}=styles
 
     return (
@@ -41,8 +42,9 @@ const treatment = () => {
           <Text style={textStyle}>There are many clinical trials for new medications</Text>
         </Card>        
       </ScrollView>
-  ); 
-};
+    );
+  } 
+}
 
 const styles ={
   cardStyle:{
@@ -67,4 +69,4 @@ const styles ={
   }  
 }
 
-export default treatment;
+export default Treatment;

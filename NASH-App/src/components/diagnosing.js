@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {ScrollView, View, Text, Image, Linking, Modal, TouchableHighlight, Alert} from 'react-native';
 import { Card } from 'react-native-elements';
-import {Button} from './common'
-class diagnosing extends Component {
+import {Button} from './common';
+
+class Diagnosing extends Component {
   state = {
     modalVisible: false,
   };
@@ -32,7 +33,7 @@ class diagnosing extends Component {
         <Card style={{flex:1, flexDirection:"column", justifyContent:"center", alignItems:"flex-start"}}>
           <Image 
             style={{width:100, height:100, alignSelf:'center'}}
-            source={require('./images/blood.png')}
+            source={require('../images/blood.png')}
             resizeMode="contain"/>
           <Text style={textStyle}>Blood Test</Text>
           <Text>Current tests can help assess the severity of liver disease due to NASH. These tests are not perfect and your provider may need additional testing</Text>
@@ -40,7 +41,7 @@ class diagnosing extends Component {
         <Card style={{flex:1, flexDirection:"column", justifyContent:"center", alignItems:"flex-start"}}>
           <Image 
             style={{flex:1, alignSelf:'center', width:300, height:100}}
-            source={require('./images/ultrasound.jpg')}
+            source={require('../images/ultrasound.jpg')}
             resizeMode="cover"/>
           <Text style={textStyle}>Liver Ultrasound, MRI</Text>
           <Text>Diagnostic tests that use imaging technology can help to asses the health of your liver and determine your risk of NASH</Text>
@@ -48,7 +49,7 @@ class diagnosing extends Component {
         <Card style={{flex:1, flexDirection:"column", justifyContent:"center", alignItems:"flex-start"}}>
           <Image 
           style={{flex:1, alignSelf:'center', width:300, height:100}}
-            source={require('./images/biopsy.png')}
+            source={require('../images/biopsy.png')}
             resizeMode="contain"/>
           <TouchableHighlight
           onPress={() => {
@@ -140,4 +141,4 @@ const styles ={
   }  
 }
 
-export default diagnosing;
+export default Diagnosing;

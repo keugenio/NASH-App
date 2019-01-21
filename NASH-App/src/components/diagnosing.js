@@ -1,35 +1,79 @@
 import React, { Component } from 'react';
-import {ScrollView, View, Text, Image, Linking, Modal, TouchableHighlight, Alert} from 'react-native';
-import { Card } from 'react-native-elements';
+import {ScrollView, FlatList, View, Text, Image, Linking, Modal, TouchableHighlight, Alert, Dimensions} from 'react-native';
+import { Card, Icon } from 'react-native-elements';
 import {Button} from './common';
+import Carousel from 'react-native-snap-carousel';
 
 class Diagnosing extends Component {
   state = {
     modalVisible: false,
+    entries1: [
+      { image:'../images/biopsy.png', text1:'Blood Test', text2:'Current tests can help assess the severity of liver disease due to NASH. These tests are not perfect and your provider may need additional testing' },
+      { image:'../images/ultrasound.jpg', text1:'Liver Ultrasound, MRI', text2:'Diagnostic tests that use imaging technology can help to asses the health of your liver and determine your risk of NASH'},
+      { image:'../images/blood.png', text1:'Liver Biopsy', text2:'Liver biopsy is the best and most definitive test to diagnose NASH. Your provider may recommend this if they suspect NASH' }                                              
+    ]   
   };
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
+
+  _renderItem ({item, index}) {
+    return (
+      <View style={styles.flatListViewStyle}>
+        <Icon name='heartbeat' type='font-awesome' color='#f50' containerStyle={{marginRight:10}}/>
+        <Text style={{fontSize:20, flex:1, flexWrap:'wrap'}}>{ item.key }</Text>
+      </View>
+      );
+  }
+  _renderCard ({item, index}) {
+    let img = '';
+    switch(item.image){
+        case '../images/biopsy.png':
+            img = require('../images/biopsy.png');
+            break;
+        case '../images/ultrasound.jpg':
+            img = require('../images/ultrasound.jpg');
+            break;
+        case '../images/blood.png':
+            img = require('../images/blood.png');
+            break;
+    }    
+    return (
+      <Card style={{flex:1, flexDirection:"column", justifyContent:"center", alignItems:"flex-start"}}>
+        <Image 
+          style={{width:100, height:100, alignSelf:'center'}}
+          source={img}
+          resizeMode="contain"/>
+        <Text style={styles.textStyle}>{item.text1}</Text>
+        <Text>{item.text2}</Text>
+    </Card>
+      );
+  }
+
   render(){
-    const {textStyle, quoteStyle, bgSoftBlue}=styles
+    const {textStyle, quoteStyle, bgSoftBlue}=styles;
+    const {height, width} = Dimensions.get('window');
 
     return (
-      <ScrollView>
-        <View style={{marginLeft:50, marginRight:50}}>        
-          <Text style={textStyle}>
-            *Fatty liver is often a silent condition, with no symptoms.
-          </Text>
-          <Text style={textStyle}>
-            *Blood tests and imaging can confirm a fatty liver diagnosis.
-          </Text>
-          <Text style={textStyle}>
-            *Imaging options include ultrasound, “ultrasound elastography or Fibroscan” and MRI.
-          </Text>
-          <Text style={textStyle}>
-            *A liver biopsy is sometimes done to confirm the more severe type of fatty liver, non-alcoholic steatohepatitis
-          </Text>               
-        </View>
+      <ScrollView>        
+        <FlatList
+          data={[
+            {key:'Fatty liver is often a silent condition, with no symptoms.'},
+            {key:'Blood tests and imaging can confirm a fatty liver diagnosis.'},
+            {key:'Imaging options include ultrasound, “ultrasound elastography or Fibroscan” and MRI.'},
+            {key:'A liver biopsy is sometimes done to confirm the more severe type of fatty liver, non-alcoholic steatohepatitis.'}
+          ]}
+          renderItem={this._renderItem}
+          />
+        <View>
+          <Carousel
+            ref={(c) => { this._carousel = c; }}
+            data={this.state.entries1}
+            renderItem={this._renderCard}
+            sliderWidth={width}
+            itemWidth={width*.75} />        
+        </View>          
         <Card style={{flex:1, flexDirection:"column", justifyContent:"center", alignItems:"flex-start"}}>
           <Image 
             style={{width:100, height:100, alignSelf:'center'}}
@@ -138,7 +182,23 @@ const styles ={
   },  
   bgSoftBlue: {
     backgroundColor:'#0099CC'
-  }  
+  },
+  flatListViewStyle:{
+    flex:1,
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    alignItems:'center',
+    borderBottomWidth:1,
+    borderStyle:'solid',
+    borderBottomColor:'rgba(211,211,211, .25)',
+    padding:10
+  },
+  cardImageStyle: {
+    flex:1, 
+    alignSelf:'center', 
+    width:300, 
+    height:100    
+  }
 }
 
 export default Diagnosing;

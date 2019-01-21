@@ -1,40 +1,44 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Image, View } from 'react-native';
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import WhatIsNash from './src/components/WhatIsNash';
 import Diagnosing from './src/components/Diagnosing';
 import Treatment from './src/components/Treatment';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Footer }  from './src/components/common';
-import MyCarousel from './src/components/MyCarousel';
+import WhatCarousel from './src/components/WhatCarousel';
 
 class HomeScreen extends React.Component {
 
   render() {
     const { container } = styles;
     return (
-      <ScrollView contentContainerStyle={container}>
-        <MyCarousel />
-        
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-          <Button
-            title="What is Nash"
-            onPress={() => this.props.navigation.navigate('WhatIsNash')}        
-          />        
-          <Button
-          title="Diagnosing"
-          onPress={() => this.props.navigation.navigate('Diagnosing')}  
-          />
-          <Button
-          title="Treatment"
-          onPress={() => this.props.navigation.navigate('Treatment')}  
-          />  
-                          
-        </View> 
-      
-        <Footer />
-      </ScrollView>
-    );
+      <View style={{ flex: 1}}>
+          <View style={{position: 'absolute',top: 0,left: 0,width: '100%', height: '100%'}} >
+            <Image  style={{flex: 1, resizeMode:'cover',}} source={require('./src/images/home_bg2.jpg')} blurRadius={3} />
+          </View>
+            
+          <ScrollView contentContainerStyle={container}>
+            <WhatCarousel />
+            
+            <View style={{ flex: .15, alignItems: "center", justifyContent: "center" }}>
+              <Button
+                title="What is Nash"
+                onPress={() => this.props.navigation.navigate('WhatIsNash')}        
+              />        
+              <Button
+              title="Diagnosing"
+              onPress={() => this.props.navigation.navigate('Diagnosing')}  
+              />
+              <Button
+              title="Treatment"
+              onPress={() => this.props.navigation.navigate('Treatment')}  
+              />                
+              <Footer />
+            </View>
+          </ScrollView>
+      </View>
+      );
   }
 }
 
@@ -46,7 +50,7 @@ const AppNavigator = createStackNavigator(
     Treatment: Treatment
   },
   {
-    initialRouteName: "Home"
+    initialRouteName: "Diagnosing"
   }
 );
 
@@ -61,10 +65,9 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#e3f2fd',
+    backgroundColor: 'transparent',
     alignItems: 'stretch',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
 });
 
